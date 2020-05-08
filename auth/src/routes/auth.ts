@@ -6,6 +6,7 @@ import {
   signUp,
 } from '../controllers/authController';
 import { body } from 'express-validator';
+import { NotFoundError } from '../errors/not-found-error';
 
 const router = express.Router();
 
@@ -38,5 +39,10 @@ router.post(
   ],
   signUp
 );
+
+// Add combined router
+router.all('*', () => {
+  throw new NotFoundError();
+});
 
 export { router as authRouter };
