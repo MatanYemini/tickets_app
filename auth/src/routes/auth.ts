@@ -6,7 +6,7 @@ const router = express.Router();
 // @desc    Get the current user
 // @access  Public
 router.get('/currentuser', (req, res) => {
-  res.send('Hi There');
+  res.send('Hi There!');
 });
 
 export default router;
