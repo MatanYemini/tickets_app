@@ -1,4 +1,4 @@
-import e, { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { validationResult } from 'express-validator';
 import { RequestValidationError } from '../errors/request-validation-error';
 import jwt from 'jsonwebtoken';
@@ -38,7 +38,7 @@ export const signUp = async (
         id: user.id,
         email: user.email,
       },
-      'asdf'
+      process.env.JWT_KEY! // says dont worry this is defined
     );
 
     // save it on a session object
