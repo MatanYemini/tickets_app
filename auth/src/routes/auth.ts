@@ -7,23 +7,39 @@ import {
 } from '../controllers/authController';
 import { body } from 'express-validator';
 import { NotFoundError } from '../errors/not-found-error';
+import { validateRequest } from '../middlewares/validate-request';
+import { defineCurrentUser } from '../middlewares/current-user';
+import { requireAuth } from '../middlewares/require-auth';
 
 const router = express.Router();
-
-// @route   GET api/users/currentuser
-// @desc    Get the current user
-// @access  Private
-router.get('/currentuser', currentUser);
-
-// @route   GET api/users/signin
-// @desc    User sign in
-// @access  Public
-router.post('/signin', signIn);
 
 // @route   GET api/users/signout
 // @desc    User sign out
 // @access  Private
 router.post('/signout', signOut);
+
+// @route   GET api/users/currentuser
+// @desc    Get the current user
+// @access  Private
+router.get('/currentuser', defineCurrentUser, requireAuth, (req, res) => {
+  res.send({ currentUser: req.currentUser || null });
+});
+
+// @route   GET api/users/signin
+// @desc    User sign in
+// @access  Public
+router.post(
+  '/signin',
+  [
+    body('email').isEmail().withMessage('Email must be valid'),
+    body('password')
+      .trim()
+      .notEmpty()
+      .withMessage('You must supply a password'),
+  ],
+  validateRequest,
+  signIn
+);
 
 // @route   GET api/users/signup
 // @desc    User sign up
@@ -37,6 +53,7 @@ router.post(
       .isLength({ min: 4, max: 20 })
       .withMessage('Password should be at least 4 password'),
   ],
+  validateRequest,
   signUp
 );
 
