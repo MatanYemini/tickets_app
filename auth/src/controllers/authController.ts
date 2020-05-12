@@ -18,10 +18,6 @@ export const signUp = async (
   res: Response,
   next: NextFunction
 ) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    throw new RequestValidationError(errors.array());
-  }
   const { email, password } = req.body;
   try {
     const existingUser = await User.findOne({ email });

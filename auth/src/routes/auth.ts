@@ -7,6 +7,7 @@ import {
 } from '../controllers/authController';
 import { body } from 'express-validator';
 import { NotFoundError } from '../errors/not-found-error';
+import { validateRequest } from '../middlewares/validate-request';
 
 const router = express.Router();
 
@@ -18,7 +19,18 @@ router.get('/currentuser', currentUser);
 // @route   GET api/users/signin
 // @desc    User sign in
 // @access  Public
-router.post('/signin', signIn);
+router.post(
+  '/signin',
+  [
+    body('email').isEmail().withMessage('Email must be valid'),
+    body('password')
+      .trim()
+      .notEmpty()
+      .withMessage('You must supply a password'),
+  ],
+  validateRequest,
+  signIn
+);
 
 // @route   GET api/users/signout
 // @desc    User sign out
@@ -37,6 +49,7 @@ router.post(
       .isLength({ min: 4, max: 20 })
       .withMessage('Password should be at least 4 password'),
   ],
+  validateRequest,
   signUp
 );
 
