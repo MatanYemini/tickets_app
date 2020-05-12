@@ -8,13 +8,22 @@ import {
 import { body } from 'express-validator';
 import { NotFoundError } from '../errors/not-found-error';
 import { validateRequest } from '../middlewares/validate-request';
+import { defineCurrentUser } from '../middlewares/current-user';
+import { requireAuth } from '../middlewares/require-auth';
 
 const router = express.Router();
+
+// @route   GET api/users/signout
+// @desc    User sign out
+// @access  Private
+router.post('/signout', signOut);
 
 // @route   GET api/users/currentuser
 // @desc    Get the current user
 // @access  Private
-router.get('/currentuser', currentUser);
+router.get('/currentuser', defineCurrentUser, requireAuth, (req, res) => {
+  res.send({ currentUser: req.currentUser || null });
+});
 
 // @route   GET api/users/signin
 // @desc    User sign in
@@ -31,11 +40,6 @@ router.post(
   validateRequest,
   signIn
 );
-
-// @route   GET api/users/signout
-// @desc    User sign out
-// @access  Private
-router.post('/signout', signOut);
 
 // @route   GET api/users/signup
 // @desc    User sign up
