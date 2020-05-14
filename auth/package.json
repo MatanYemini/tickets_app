@@ -5,7 +5,15 @@
   "main": "index.js",
   "scripts": {
     "maybe": "ts-node-dev src/index.ts",
-    "start": "nodemon --exec ts-node -- ./src/index.ts"
+    "start": "nodemon --exec ts-node -- ./src/index.ts",
+    "test": "jest --watchAll --no-cache"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "./src/test/setup.ts"
+    ]
   },
   "keywords": [],
   "author": "",
@@ -24,5 +32,13 @@
     "ts-node": "^8.10.1",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.8.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.2.1",
+    "@types/supertest": "^2.0.9",
+    "jest": "^26.0.1",
+    "mongodb-memory-server": "^6.6.0",
+    "supertest": "^4.0.2",
+    "ts-jest": "^25.5.1"
   }
 }
