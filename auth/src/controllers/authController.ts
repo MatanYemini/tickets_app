@@ -42,7 +42,7 @@ export const signIn = async (
       jwt: userJwt,
     };
 
-    res.status(201).send(exisitngUser);
+    res.status(200).send(exisitngUser);
   } catch (error) {
     next(error);
   }
