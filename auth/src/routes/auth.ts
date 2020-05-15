@@ -1,6 +1,7 @@
 import express from 'express';
 import {
   currentUser,
+  trying,
   signIn,
   signOut,
   signUp,
@@ -17,6 +18,8 @@ const router = express.Router();
 // @desc    User sign out
 // @access  Private
 router.post('/signout', signOut);
+
+router.post('/try', trying);
 
 // @route   GET api/users/currentuser
 // @desc    Get the current user
