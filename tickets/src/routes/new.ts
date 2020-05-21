@@ -2,6 +2,8 @@ import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import { requireAuth, validateRequest } from '@yemini/common';
 import { Ticket } from '../models/ticket';
+import { TicketCreatedPublisher } from '../events/publisher/ticket-created-publish';
+import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 
@@ -25,6 +27,12 @@ router.post(
     });
     try {
       await ticket.save();
+      new TicketCreatedPublisher(natsWrapper.client).publish({
+        id: ticket.id,
+        title: ticket.title,
+        price: ticket.price,
+        userId: ticket.userId,
+      });
 
       res.status(201).send(ticket);
     } catch (error) {}
