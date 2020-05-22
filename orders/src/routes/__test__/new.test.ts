@@ -3,8 +3,6 @@ import { app } from '../../app';
 import { Ticket } from '../../models/ticket';
 import { natsWrapper } from '../../nats-wrapper';
 
-jest.mock('../../nats-wrapper');
-
 it('has a route handler listening to /api/tickets for post requests', async () => {
   const response = await request(app).post('/api/tickets').send({});
 
@@ -83,16 +81,17 @@ it('creates a ticket with valid inputs', async () => {
   expect(tickets[0].title).toEqual(title);
 });
 
-// it('publishes an event', async () => {
-//   const title = 'akaka';
-//   await request(app)
-//     .post('/api/tickets')
-//     .set('Cookie', global.signin())
-//     .send({
-//       title: '',
-//       price: 10,
-//     })
-//     .expect(201);
+it('publishes an event', async () => {
+  const title = 'asldkfj';
 
-//   expect(natsWrapper.client.publish).toHaveBeenCalled();
-// });
+  await request(app)
+    .post('/api/tickets')
+    .set('Cookie', global.signin())
+    .send({
+      title,
+      price: 20,
+    })
+    .expect(201);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
+});
