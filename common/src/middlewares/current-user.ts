@@ -14,7 +14,7 @@ declare global {
   }
 }
 
-export const defineCurrentUser = (
+export const currentUser = (
   req: Request,
   res: Response,
   next: NextFunction
@@ -29,7 +29,7 @@ export const defineCurrentUser = (
       process.env.JWT_KEY!
     ) as UserPayload;
     req.currentUser = payload;
-  } catch (error) {}
+  } catch (err) {}
 
   next();
 };
