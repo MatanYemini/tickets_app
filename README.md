@@ -1,6 +1,5 @@
 # tickets_app
-Ticketing Website - Managing Small Event-Driven Distributed System
----
+-- Ticketing Website - Managing Small Event-Driven Distributed System
 ## Tech Stack: 
 
 * NATS Streaming Server Implementation
