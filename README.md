@@ -23,7 +23,7 @@
 
 **The Error Handling middlewate is handled in the custom package**
 
-**The 'Common' folder includes the custom NPM package**_not finished yet.._
+**The 'Common' folder includes the custom NPM package**  _not finished yet.._
 
 #### NATS Streaming
 
