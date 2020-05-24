@@ -18,6 +18,7 @@
 * NATS Streaming deployment and service
 * MongoDB deployments and services
 * Ingress-Nginx deployment and service
+* Includes configuratons for google cloud
 
 **The Authentication middleware is handled in the custom package using JWT**
 
