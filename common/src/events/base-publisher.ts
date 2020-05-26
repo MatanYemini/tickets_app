@@ -1,4 +1,4 @@
-import { Message, Stan } from 'node-nats-streaming';
+import { Stan } from 'node-nats-streaming';
 import { Subjects } from './subjects';
 
 interface Event {
@@ -20,7 +20,7 @@ export abstract class Publisher<T extends Event> {
         if (err) {
           return reject(err);
         }
-        console.log('Event published');
+        console.log('Event published to subject', this.subject);
         resolve();
       });
     });
