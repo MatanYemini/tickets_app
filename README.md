@@ -26,8 +26,12 @@
 
 **The 'Common' folder includes the custom NPM package**  _not finished yet.._
 
+-- **Now I am building the CI using digital ocean**
+
 #### NATS Streaming
 
 * You can read my post on the implementation process in: https://medium.com/beyond-coding/nats-streaming-server-in-the-node-js-world-with-kubernetes-how-to-guide-2595dd598acc
 
 * You can get the graphes from the folder 'graphes' and open it with draw io
+
+
