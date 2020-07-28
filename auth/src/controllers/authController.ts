@@ -88,7 +88,3 @@ export const signOut = (req: Request, res: Response) => {
 
   res.send({});
 };
-
-export const trying = (req: Request, res: Response) => {
-  res.send('asdasd');
-};
